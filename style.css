@@ -1,0 +1,70 @@
+*{
+    font-family: gotham;
+    font-weight: 500;
+}
+
+body{
+    background-color: black;
+    /*background-color: #FFFAFF;*/
+}
+
+.juego{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+
+.score{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+h3{
+    color: #13293D;
+    color: white;
+    font-size:50px;
+}
+
+h4{
+    font-size: 40px;
+}
+#leuco{
+    color:#3E92CC;
+}
+
+#bact{
+    color:#18435A;
+}
+
+canvas{
+    /*border: 1px solid #D8CBC7;*/
+    z-index: -1;
+    background: white;
+}
+
+.tiempo{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-around;
+}
+
+#image {
+    left:500px;
+    top:370px;
+    height: 150px;
+    width: 150px;
+  background: 
+  url('./sprite.png') 0px 0px;
+  position: absolute;
+  z-index: 0;
+  }
+  
+  #globulo{
+    height: 150px;
+    width: 150px;
+  background: 
+  url('./sprite-glob.png') 0px 0px;
+  position: absolute;
+  z-index: 0;
+  }
