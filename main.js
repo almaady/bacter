@@ -190,7 +190,6 @@ total = rastroJ1.length + rastroJ2.length
 porcenJ1 = (100/total)*rastroJ1.length
 porcenJ2 = (100/total)*rastroJ2.length
 console.log(frames)
-if()
     document.getElementById("scoreJ1").innerHTML= (Math.floor(porcenJ1)+ "%")
     document.getElementById("scoreJ2").innerHTML= (Math.floor(porcenJ2)+ "%")
 
