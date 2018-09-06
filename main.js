@@ -1,6 +1,18 @@
 //canvas
-var canvas = document.getElementsByTagName('canvas')[0];
+var canvas = document.getElementById('juego');
 var ctx = canvas.getContext('2d')
+var btnPlay = document.getElementById("play")
+var btnInstrucciones = document.getElementById("instrucciones")
+var textoIns = document.getElementsByTagName("span")[0]
+var imagenJ1 = document.getElementsByClassName("jugador1")[0]
+var imagenJ2 = document.getElementsByClassName("jugador2")[0]
+var cerrar = document.getElementById("close")
+var tiempo = document.getElementsByClassName("tiempo")[0]
+var btnReplay = document.getElementById("replay")
+var ganador ;
+var porcenJ1 = 50;
+var porcenJ2 = 50;
+
 
 
 //testing
@@ -32,9 +44,6 @@ class Board {
         this.height = canvas.height
         this.image = new Image()
         this.image.src = images.bg
-        this.image.onload = () =>{
-            this.draw()
-        }
     }
         draw (){
             ctx.drawImage(this.image,this.x,this.y,this.width,this.height)
@@ -53,9 +62,6 @@ class Bact {
         this.height= 100
         this.image = new Image()
         this.image.src = images.bact
-        this.image.onload = () =>{
-            this.draw()
-        }
     }
     draw (){
         if(frames%10===0)this.changeSprite()
@@ -81,9 +87,7 @@ class Leuco{
         this.height= 100
         this.image = new Image()
         this.image.src = images.leuco
-        this.image.onload = () =>{
-            this.draw()
-        }
+
     }
         draw (){
             if(frames%10===0)this.changeSprite()
@@ -180,11 +184,34 @@ jugador2.draw()
 jugador1.draw()
 bg.draw()    
 frames++
+$("canvas").css("background","white")
+
 total = rastroJ1.length + rastroJ2.length
 porcenJ1 = (100/total)*rastroJ1.length
 porcenJ2 = (100/total)*rastroJ2.length
 console.log(frames)
-if (frames >= 1800 && porcenJ1!=50 ) gameOver()
+if()
+    document.getElementById("scoreJ1").innerHTML= (Math.floor(porcenJ1)+ "%")
+    document.getElementById("scoreJ2").innerHTML= (Math.floor(porcenJ2)+ "%")
+
+if (frames >= 900 && porcenJ1!=50 ) gameOver()
+
+document.getElementById("tiempo").innerHTML= (30-Math.round((frames/60)) + " segs")
+}
+
+function replay(){
+    if(interval)return
+    //-------AQUI EMPIEZAN LOS OBSERVADORES PARA HACER QUE PRESIONE VARIAS TECLAS ------ //
+ window.addEventListener('keydown', function (e) {
+   bg.keys = (bg.keys || []);
+   bg.keys[e.keyCode] = true;
+ })
+ window.addEventListener('keyup', function (e) {
+   bg.keys[e.keyCode] = false; 
+ })
+ 
+//-------AQUI TERMINAN LOS OBSERVADORES PARA HACER QUE PRESIONE VARIAS TECLAS ------ //
+interval = setInterval(update,1000/60) 
 }
 
 function start(){
@@ -197,32 +224,80 @@ function start(){
   window.addEventListener('keyup', function (e) {
     bg.keys[e.keyCode] = false; 
   })
+  imagenJ1.classList.toggle("ocultate")
+  imagenJ2.classList.toggle("ocultate")
+  tiempo.classList.toggle("ocultate")
+  nombreJ1()
+  nombreJ2()
+
+  
 //-------AQUI TERMINAN LOS OBSERVADORES PARA HACER QUE PRESIONE VARIAS TECLAS ------ //
 interval = setInterval(update,1000/60) 
+
 }
+
+function nombreJ1() {
+    var person = prompt("Team Leucocitos");
+    document.getElementById("nombreJ1").innerHTML = person;
+}
+
+function nombreJ2() {
+    var person = prompt("Team Bacterias");
+    document.getElementById("nombreJ2").innerHTML = person;
+}
+
 
 function gameOver(){
         clearInterval(interval)
+        // ganador.style.display="inherit"
         if(rastroJ1.length >rastroJ2.length){
-            ctx.fillText("Jugador1",300,300,300)
+            ganador = ganadorJ1()
         }
         if(rastroJ2.length >rastroJ1.length){
-            ctx.fillText("Jugador2",300,300,300)
+          ganador = ganadorJ2()
         }
+        // if(rastroJ1.length >rastroJ2.length){
+        //     document.getElementById("textoganadorJuego").innerHTML= "¡Felicidades, ninguna bacteria es rival para ti!"
+        //     document.getElementById("ganadorJuego").classList.toggle("ganadorJ1")
+        //     document.getElementById("imagenGanadorJ1").classList.toggle("ocultate")
+        // }
+        // if(rastroJ2.length >rastroJ1.length){
+        //     document.getElementById("textoganadorJuego").innerHTML= "¡Felicidades, el sistema inmunológico no fue rival para ti!"
+        //     document.getElementById("ganadorJuego").classList.toggle("ganadorJ2")
+        //     document.getElementById("imagenGanadorJ2").classList.toggle("ocultate")
+        // }
 
         console.log(porcenJ1)
         console.log(porcenJ2)
-        
-        ctx.fillText(Math.floor(porcenJ1) +"%",100,350,300)
-        ctx.fillText(Math.floor(porcenJ2) +"%",300,350,300)
+        document.getElementById("scoreJ1").innerHTML= (Math.floor(porcenJ1)+ "%")
+        document.getElementById("scoreJ2").innerHTML= (Math.floor(porcenJ2)+ "%")
+       
+        //ctx.fillText(Math.floor(porcenJ1) +"%",100,350,300)
+        //ctx.fillText(Math.floor(porcenJ2) +"%",300,350,300)
         rastroJ1=[]
         rastroJ2= []
         interval = null
         frames = 0 
+
+        btnReplay.style.display ="inherit"
+    //btnInstrucciones.classList.toggle("ocultate")
+
 }
 
 
 //funciones auxiliares
+
+function ganadorJ1(){
+    document.getElementById("textoganadorJuego").innerHTML= "¡Felicidades, ninguna bacteria es rival para ti!"
+    document.getElementById("ganadorJuego").classList.toggle("ganadorJ1")
+    document.getElementById("imagenGanadorJ1").classList.toggle("ocultate")
+}
+function ganadorJ2(){
+    document.getElementById("textoganadorJuego").innerHTML= "¡Felicidades, el sistema inmunológico no fue rival para ti!"
+    document.getElementById("ganadorJuego").classList.toggle("ganadorJ2")
+    document.getElementById("imagenGanadorJ2").classList.toggle("ocultate")
+}
+
 function crearRastro(jugador){
 var rastroCreado = new Rastro(jugador)
 
@@ -238,5 +313,31 @@ if(jugador === jugador1) {
 if(jugador === jugador2) rastroJ2.push(rastroCreado)
 }
 
-start()
+//observador
+btnPlay.addEventListener("click",()=>{
+    start()
+    document.getElementById("scoreJ1").innerHTML = "0%"
+    document.getElementById("scoreJ2").innerHTML = "0%"
+    btnPlay.classList.toggle("ocultate")
+    btnInstrucciones.classList.toggle("ocultate")
+})
 
+btnInstrucciones.addEventListener("click",()=>{
+    textoIns.classList.toggle("instrucciones")
+    //close.classList.toggle("ocultate")
+})
+
+cerrar.addEventListener("click",()=>{
+    textoIns.classList.toggle("instrucciones")
+})
+
+btnReplay.addEventListener("click",()=>{
+    replay()
+    document.getElementById("scoreJ1").innerHTML = "0%"
+    document.getElementById("scoreJ2").innerHTML = "0%"
+    btnReplay.style.display ="none"
+    ganador = null
+
+
+    // btnReplay.classList.toggle("replay")
+})

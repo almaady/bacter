@@ -12,6 +12,8 @@ body{
     display:flex;
     flex-direction: row;
     justify-content: space-around;
+    z-index:-1;
+    margin-top:200px;
 }
 
 
@@ -40,7 +42,7 @@ h4{
 canvas{
     /*border: 1px solid #D8CBC7;*/
     z-index: -1;
-    background: white;
+    background: black;
 }
 
 .tiempo{
@@ -67,4 +69,143 @@ canvas{
   url('./sprite-glob.png') 0px 0px;
   position: absolute;
   z-index: 0;
+  }
+
+/*INICIO*/
+
+button{
+    background-color: #67AAF9;
+    border: none;
+    width:400px;
+    height:100px;
+    font-size:50px;
+    color:#C4E0F9;
+    padding:30px;
+   
+    display: block;
+}
+
+button:nth-child(2){
+    margin-top:30px;
+}
+
+.ocultate{
+    display: none;
+}
+
+p{
+    color:white;
+}
+
+.jugadores{
+    width:20%;
+}
+
+.botones{
+    z-index: 0;
+    position: absolute;
+    top:30vh;
+    left:37vw;
+}
+
+#play:hover{
+ background-color: #2EC0F9;
+ color: white;
+}
+
+#instrucciones:hover{
+    background-color: #2EC0F9;
+    color: white;
+}
+
+.jugadores{
+    font-size:50px;
+    text-align: center;
+}
+
+.instrucciones {
+    width: 160px;
+    background-image: url("./Instr.png");
+    height: 800px;
+    width: 800px;
+    color: #fff;
+    text-align: center;
+    position: absolute;
+    z-index: 3;
+    display: inherit;
+    left: 20vw;
+    top: 10vh;
+}
+
+
+.ganador{
+    text-align: center;
+    border: none;
+    left: 35vw;
+    padding: 30px;
+    top: 24vh;
+    width: 400px;
+    height: 200px;
+    font-size: 30px;
+    color: white;
+    z-index: 3;
+    position: absolute;
+    display: none;
+
+}
+
+.ganadorJ1{
+background-color: #c2bbf0; 
+display:inherit;
+}
+
+.ganadorJ2{
+background-color:#81E979;
+display:inherit;
+}
+
+.tiempo{
+    position: relative;
+}
+.tiempo h3{
+    display: block;
+}
+.tiempo p{
+    display:block;
+    font-size: 40px;
+}
+
+#close{
+    width:50px;
+    background-color: none;
+    right: 0;
+}
+
+#replay{
+    display: none;
+    top: 20vh;
+    position: absolute;
+    background-color:  #67AAF9;
+    
+}
+
+#replay:hover{
+    background-color: #2EC0F9;
+    color: white;
+   }
+.svg{
+    stroke-dasharray: 2000;
+    stroke-dashoffset: 2000;
+    animation: dash 5s linear infinite;
+
+  }
+  
+  @keyframes dash {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  .blanco{
+      stroke: #fff;
   }
