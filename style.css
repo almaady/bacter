@@ -50,7 +50,7 @@ canvas{
         display: flex;
         flex-direction: row;
         justify-content: space-around;
-        bottom:0;
+        top:95vh;
 }
 
 #image {
