@@ -126,6 +126,12 @@ class Rastro{
             this.cachoX=0
         } 
  }
+    crashWith(item){
+       return  (this.x < item.x + item.width)&&
+               (this.x + this. width > item.x)&&
+               (this.y < item.y + item.height)&&
+               (this.y + this.height > item.y)
+     }   
 }
 
  //Rastro
@@ -189,18 +195,19 @@ $("canvas").css("background","white")
 total = rastroJ1.length + rastroJ2.length
 porcenJ1 = (100/total)*rastroJ1.length
 porcenJ2 = (100/total)*rastroJ2.length
-console.log(frames)
+//console.log(frames)
     document.getElementById("scoreJ1").innerHTML= (Math.floor(porcenJ1)+ "%")
     document.getElementById("scoreJ2").innerHTML= (Math.floor(porcenJ2)+ "%")
 
-if (frames >= 900 && porcenJ1!=50 ) gameOver()
-
+if (frames >= 1800 && porcenJ1!=50 ) gameOver()
+checkCollitions()
+checkCollitions2()
 document.getElementById("tiempo").innerHTML= (30-Math.round((frames/60)) + " segs")
 }
 
 function replay(){
     if(interval)return
-    //-------AQUI EMPIEZAN LOS OBSERVADORES PARA HACER QUE PRESIONE VARIAS TECLAS ------ //
+//-------AQUI EMPIEZAN LOS OBSERVADORES PARA HACER QUE PRESIONE VARIAS TECLAS ------ //
  window.addEventListener('keydown', function (e) {
    bg.keys = (bg.keys || []);
    bg.keys[e.keyCode] = true;
@@ -211,6 +218,8 @@ function replay(){
  
 //-------AQUI TERMINAN LOS OBSERVADORES PARA HACER QUE PRESIONE VARIAS TECLAS ------ //
 interval = setInterval(update,1000/60) 
+document.getElementById("ganadorJuego").style.display='none'
+
 }
 
 function start(){
@@ -219,6 +228,7 @@ function start(){
   window.addEventListener('keydown', function (e) {
     bg.keys = (bg.keys || []);
     bg.keys[e.keyCode] = true;
+    e.preventDefault()
   })
   window.addEventListener('keyup', function (e) {
     bg.keys[e.keyCode] = false; 
@@ -311,6 +321,22 @@ if(jugador === jugador1) {
 }
 if(jugador === jugador2) rastroJ2.push(rastroCreado)
 }
+
+function checkCollitions(){
+        rastroJ1.forEach(function(elemento){
+            if(elemento.crashWith(jugador2)){
+            rastroJ1.splice(rastroJ1.indexOf(elemento),1)
+            }
+        })
+}
+function checkCollitions2(){
+    rastroJ2.forEach(function(element){
+        if(element.crashWith(jugador1)){
+        rastroJ2.splice(rastroJ2.indexOf(element),1)
+        }
+    })
+}
+
 
 //observador
 btnPlay.addEventListener("click",()=>{
