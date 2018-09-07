@@ -9,6 +9,7 @@ var imagenJ2 = document.getElementsByClassName("jugador2")[0]
 var cerrar = document.getElementById("close")
 var tiempo = document.getElementsByClassName("tiempo")[0]
 var btnReplay = document.getElementById("replay")
+var titulo = document.getElementById("tituloSVG")
 var ganador ;
 var porcenJ1 = 50;
 var porcenJ2 = 50;
@@ -54,8 +55,8 @@ class Board {
 
 class Bact {
     constructor(){
-        this.x =400
-        this.y= 350
+        this.x =500
+        this.y= 250
         this.cachoX= 0
         this.cachoWidth=150
         this.width= 100
@@ -80,7 +81,7 @@ class Bact {
 class Leuco{
     constructor(){
         this.x =0
-        this.y= 350
+        this.y= 250
         this.cachoX= 0
         this.cachoWidth=150
         this.width= 100
@@ -238,6 +239,7 @@ function start(){
   tiempo.classList.toggle("ocultate")
   nombreJ1()
   nombreJ2()
+  titulo.classList.toggle("tituloChico")
 
   
 //-------AQUI TERMINAN LOS OBSERVADORES PARA HACER QUE PRESIONE VARIAS TECLAS ------ //
