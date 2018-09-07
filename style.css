@@ -13,6 +13,7 @@ body{
     flex-direction: row;
     justify-content: space-around;
     z-index:-1;
+    margin-bottom: 10px;
     /* margin-top:50px; */
 }
 
@@ -74,14 +75,16 @@ canvas{
 /*INICIO*/
 
 button{
-    background-color: #67AAF9;
+    background-color: #96E6B3;
     border: none;
     width:400px;
     height:100px;
     font-size:50px;
-    color:#C4E0F9;
+    color:white;
     padding:30px;
+    padding-bottom: 40px;
     margin: 0 20px;
+    text-align:center;
    
     display: block;
 }
@@ -145,7 +148,7 @@ p{
 
 .instrucciones {
     width: 160px;
-    background-image: url("./Instr.png");
+    background-image: url("./imagenes/Instr.png");
     height: 800px;
     width: 800px;
     color: #fff;
@@ -153,7 +156,7 @@ p{
     position: absolute;
     z-index: 3;
     display: inherit;
-    left: 20vw;
+    left: 25vw;
     top: 10vh;
 }
 
@@ -186,7 +189,7 @@ display:inherit;
 
 .tiempo{
     position: absolute;
-    top:80vh;
+    bottom:1vh;
     left:47vw;
 }
 
@@ -195,10 +198,16 @@ display:inherit;
     font-size: 40px;
 }
 
+
+
 #close{
+    position: absolute;
     width:50px;
     background-color: none;
-    right: 0;
+    right: 10px;
+    top:10px;
+    color: white;
+    font-size: 50px;
 }
 
 #replay{
@@ -254,4 +263,8 @@ display:inherit;
 
   .tituloChico{
       height: 200px;
+  }
+
+  #instruccionesTexto{
+      display:none;
   }

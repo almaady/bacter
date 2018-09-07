@@ -3,7 +3,7 @@ var canvas = document.getElementById('juego');
 var ctx = canvas.getContext('2d')
 var btnPlay = document.getElementById("play")
 var btnInstrucciones = document.getElementById("instrucciones")
-var textoIns = document.getElementsByTagName("span")[0]
+var textoIns = document.getElementById("instruccionesTexto")
 var imagenJ1 = document.getElementsByClassName("jugador1")[0]
 var imagenJ2 = document.getElementsByClassName("jugador2")[0]
 var cerrar = document.getElementById("close")
@@ -23,11 +23,11 @@ var porcenJ2 = 50;
 var interval;
 var frames = 0;
 var images ={
-    bg:"./cuadricula.png",
-    bact:"./sprite.png",
-    leuco:"./sprite-glob.png",
-    splashJ2:"./rastro.png",
-    splashJ1:"./rastro1.png"
+    bg:"./imagenes/cuadricula.png",
+    bact:"./sprites/sprite.png",
+    leuco:"./sprites/sprite-glob.png",
+    splashJ2:"./sprites/rastro.png",
+    splashJ1:"./sprites/rastro1.png"
 }
 var rastroJ1=[]
 var rastroJ2= []
@@ -45,11 +45,14 @@ class Board {
         this.height = canvas.height
         this.image = new Image()
         this.image.src = images.bg
+        this.music = new Audio()
+    this.music.src ='./musica/02 Fever.mp3'
     }
         draw (){
             ctx.drawImage(this.image,this.x,this.y,this.width,this.height)
             ctx.fillText(frames,50,50)
     }
+    
 }
 //Microscopio
 
@@ -88,6 +91,8 @@ class Leuco{
         this.height= 100
         this.image = new Image()
         this.image.src = images.leuco
+        this.sonido = new Audio()
+        this.sonido.src="./musica/blubs_1.mp3"
 
     }
         draw (){
@@ -151,14 +156,17 @@ if (frames%10===0){
 if (bg.keys && bg.keys[65]) {
     jugador1.x -= 45
     crearRastro(jugador1)
+   
   }
   if (bg.keys && bg.keys[87]) {
     jugador1.y-=45;
     crearRastro(jugador1)
+   
    }
   if (bg.keys && bg.keys[83]) {
     jugador1.y += 45
     crearRastro(jugador1)
+    
    }
     if(bg.keys && bg.keys[68]){
     jugador1.x+=45;
@@ -291,6 +299,7 @@ function gameOver(){
         frames = 0 
 
         btnReplay.style.display ="inherit"
+        bg.music.pause()
     //btnInstrucciones.classList.toggle("ocultate")
 
 }
@@ -343,6 +352,7 @@ function checkCollitions2(){
 //observador
 btnPlay.addEventListener("click",()=>{
     start()
+    bg.music.play()
     document.getElementById("scoreJ1").innerHTML = "0%"
     document.getElementById("scoreJ2").innerHTML = "0%"
     btnPlay.classList.toggle("ocultate")
@@ -350,12 +360,12 @@ btnPlay.addEventListener("click",()=>{
 })
 
 btnInstrucciones.addEventListener("click",()=>{
-    textoIns.classList.toggle("instrucciones")
+    textoIns.style.display="inherit"
     //close.classList.toggle("ocultate")
 })
 
 cerrar.addEventListener("click",()=>{
-    textoIns.classList.toggle("instrucciones")
+    textoIns.style.display="none"
 })
 
 btnReplay.addEventListener("click",()=>{
