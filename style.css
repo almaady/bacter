@@ -219,6 +219,7 @@ display:inherit;
     width: 460px;
     top: 2vh;
     left: 10vw;
+    padding-top: 10px;
     position: absolute;
     background-color:  #67AAF9;
     text-align:center;
